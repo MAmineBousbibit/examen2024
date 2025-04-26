@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: amine
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: magasin
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  api:
+    image: VOTRE_UTILISATEUR/magasin-musical:latest
+    ports:
+      - "4850:4850"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://amine:password@db:5432/magasin
+volumes:
+  pgdata:
